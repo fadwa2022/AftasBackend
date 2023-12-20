@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RankingServiceImpl implements RankingService {
@@ -69,7 +70,7 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
-    public List<Ranking> calculeRanking(String compititionCode) {
+    public List<RankingDtoResponse> calculeRanking(String compititionCode) {
 
         Optional<Competition> competition =competitionRepository.findByCode(compititionCode);
 
@@ -93,7 +94,7 @@ public class RankingServiceImpl implements RankingService {
                 repository.save(ranking);
             }
 
-            return rankingOfCompetition;
+            return rankingOfCompetition.stream().map(mapper::mapToDto).collect(Collectors.toList());
         } else {
             throw new CompetitionException("Competition with code " + competition.get().getCode() + " dosent exists.");
 

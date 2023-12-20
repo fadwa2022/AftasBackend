@@ -28,6 +28,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private IdentityDocumentType identityDocument;
     private String identityNumber;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ranking> rankings;
 

@@ -10,6 +10,8 @@ import com.example.aftas.repository.CompetitionRepository;
 import com.example.aftas.services.CompetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -100,6 +102,10 @@ public class CompetitionServiceImpl implements CompetitionService {
                 .stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+    public Page<CompetitionDtoResponse> getAllPagination(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return repository.findAll(pageRequest).map(mapper::mapToDto);
     }
 
     @Override

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/members")
 public class MembresController {
     private MemberService memberService;
@@ -31,6 +32,7 @@ public class MembresController {
     }
     @PostMapping("/{competitionCode}")
     public ResponseEntity<Ranking> save(@Valid @RequestBody final MemberDtoRequest memberDtoRequest,@PathVariable("competitionCode") final String competitionCode) {
+        System.out.println(memberDtoRequest);
         var savedDto = memberService.addMembertoRanking(memberDtoRequest,competitionCode);
         return (ResponseEntity<Ranking>) new ResponseEntity<>(savedDto, HttpStatus.CREATED);
     }

@@ -17,7 +17,6 @@ public class MemberDtoRequest {
     @NotNull
     private String familyName;
 
-    @NotNull
     private LocalDate accessionDate;
 
     @NotNull
